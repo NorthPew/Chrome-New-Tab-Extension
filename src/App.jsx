@@ -76,6 +76,12 @@ const FolderStructure = styled.section`
   align-items: center;
 `
 
+const FolderContent = styled.section`
+  min-width: 20vw;
+  min-height: 5vh;
+  border: .5px solid #000;
+`
+
 function App() {
 
   const [searchTerm, setSearchTerm] = useState('')
@@ -90,8 +96,12 @@ function App() {
   }
 
   const onOpenFolder = (folder) => {
-    setIsFolderOpen(folder)
-  }
+    if (isFolderOpen.id === folder.id) {
+        setIsFolderOpen({}); // close the folder if it's already open
+    } else {
+        setIsFolderOpen(folder); // open the folder
+    }
+}
 
   return (
     <>
@@ -114,20 +124,22 @@ function App() {
                   <FolderButton onClick={() => onOpenFolder(folder)}>{folder.title}</FolderButton>
                     {
                       isFolderOpen.id === folder.id && (
-                        folder.contents.map((content) => (
-                          <div key={content.id}>
-                              <h3>{content.title}</h3>
-                              <img src={content.icon} alt={content.title} />
-                              <a href={content.link}>Link</a>
-                          </div>
-                      ))
+                        <FolderContent>
+                          {
+                            folder.contents.map((content) => (
+                              <>
+                                  <img src={content.icon} alt={content.title} width={"75px"} height={"75px"} />
+                                  <legend><a href={content.link}>{content.title}</a></legend>
+                              </>
+
+                          ))
+                          }
+                        </FolderContent>
+                        
                       )
                     }
                 </FolderStructure>
             ))}
-          <FolderStructure>
-            <FolderButton>Google</FolderButton>
-          </FolderStructure>
         </FolderContainer>
         
       </CenterContainer>
