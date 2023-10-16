@@ -1,0 +1,40 @@
+{
+    "folders": [
+        {
+            "id": 1,
+            "title": "Amazon",
+            "contents": [
+                {
+                    "id": 1,
+                    "title": "Prime Gaming",
+                    "icon": "https://d2u4zldaqlyj2w.cloudfront.net/c8cfc96a-4e25-413a-a3f8-4fc8c1df051d/favicon.ico",
+                    "link": "https://gaming.amazon.com/home"
+                },
+                {
+                    "id": 2,
+                    "title": "Prime Video",
+                    "icon": "https://m.media-amazon.com/images/G/01/digital/video/DVUI/favicons/mstile-70x70.png",
+                    "link": "https://www.primevideo.com/"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Socials",
+            "contents": [
+                {
+                    "id": 1,
+                    "title": "X",
+                    "icon": "https://abs.twimg.com/responsive-web/client-web/icon-svg.168b89da.svg",
+                    "link": "https://twitter.com/home"
+                },
+                {
+                    "id": 2,
+                    "title": "Reddit",
+                    "icon": "https://www.redditstatic.com/mweb2x/favicon/192x192.png",
+                    "link": "https://www.reddit.com/"
+                }
+            ]
+        }
+    ]
+}

@@ -83,13 +83,6 @@ function App() {
 
   const [searchTerm, setSearchTerm] = useState('')
 
-  const getTime = () => {
-    let now = new Date();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    return `${hours} : ${minutes}`
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -108,9 +101,6 @@ function App() {
         <NavBarCircleButton><i className="fa-brands fa-microsoft"></i></NavBarCircleButton>
       </NavBar>
       <CenterContainer>
-        {
-          getTime()
-        }
         <SearchBarContainer>
           <SearchBarForm onSubmit={handleSubmit}>
             <SearchBar type="text" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="Search using Google or for bookmarks"></SearchBar>
@@ -119,38 +109,9 @@ function App() {
         </SearchBarContainer>
 
         <FolderContainer>
-          <FolderStructure>
-            <FolderButton></FolderButton>
-            <FolderName>Google</FolderName>
-          </FolderStructure>
-          <FolderStructure>
-            <FolderButton></FolderButton>
-            <FolderName>Google</FolderName>
-          </FolderStructure>
-          <FolderStructure>
-            <FolderButton></FolderButton>
-            <FolderName>Google</FolderName>
-          </FolderStructure>
-          <FolderStructure>
-            <FolderButton></FolderButton>
-            <FolderName>Google</FolderName>
-          </FolderStructure>
-          <FolderStructure>
-            <FolderButton></FolderButton>
-            <FolderName>Google</FolderName>
-          </FolderStructure>
-          <FolderStructure>
-            <FolderButton></FolderButton>
-            <FolderName>Google</FolderName>
-          </FolderStructure>
-          <FolderStructure>
-            <FolderButton></FolderButton>
-            <FolderName>Google</FolderName>
-          </FolderStructure>
-          <FolderStructure>
-            <FolderButton></FolderButton>
-            <FolderName>Google</FolderName>
-          </FolderStructure>
+          {
+
+          }
           <FolderStructure>
             <FolderButton></FolderButton>
             <FolderName>Google</FolderName>
