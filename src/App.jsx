@@ -1,8 +1,9 @@
 import styled from "styled-components"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import "./app.css"
 import "../font-awesome.js"
+import data from "../data.json"
 
 // Navbar
 const NavBar = styled.nav`
@@ -63,13 +64,9 @@ const FolderContainer = styled.section`
 `
 
 const FolderButton = styled.button`
-  border-radius: 15px;
-  width: 100px;
-  height: 100px;
-`
-
-const FolderName = styled.legend`
   font-size: 16px;
+  border-radius: 15px;
+  padding: .25em .65em;
 `
 
 const FolderStructure = styled.section`
@@ -82,7 +79,7 @@ const FolderStructure = styled.section`
 function App() {
 
   const [searchTerm, setSearchTerm] = useState('')
-
+  const [isFolderOpen, setIsFolderOpen] = useState({})
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -92,6 +89,9 @@ function App() {
     
   }
 
+  const onOpenFolder = (folder) => {
+    setIsFolderOpen(folder)
+  }
 
   return (
     <>
@@ -109,12 +109,24 @@ function App() {
         </SearchBarContainer>
 
         <FolderContainer>
-          {
-
-          }
+        {data.folders.map((folder) => (
+                <FolderStructure key={folder.id}>
+                  <FolderButton onClick={() => onOpenFolder(folder)}>{folder.title}</FolderButton>
+                    {
+                      isFolderOpen.id === folder.id && (
+                        folder.contents.map((content) => (
+                          <div key={content.id}>
+                              <h3>{content.title}</h3>
+                              <img src={content.icon} alt={content.title} />
+                              <a href={content.link}>Link</a>
+                          </div>
+                      ))
+                      )
+                    }
+                </FolderStructure>
+            ))}
           <FolderStructure>
-            <FolderButton></FolderButton>
-            <FolderName>Google</FolderName>
+            <FolderButton>Google</FolderButton>
           </FolderStructure>
         </FolderContainer>
         
