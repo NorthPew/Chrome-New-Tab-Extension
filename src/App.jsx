@@ -39,6 +39,10 @@ const SearchBar = styled.input`
 `
 
 const SearchBarContainer = styled.section`
+  width: calc(50vw + 50px);
+`
+
+const SearchBarForm = styled.form`
   display: flex;
   flex-flow: row wrap;
   column-gap: 10px;
@@ -108,10 +112,10 @@ function App() {
           getTime()
         }
         <SearchBarContainer>
-          <form onSubmit={handleSubmit}>
+          <SearchBarForm onSubmit={handleSubmit}>
             <SearchBar type="text" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="Search using Google or for bookmarks"></SearchBar>
             <SearchOptionButton type="submit"><i className="fa-brands fa-google"></i></SearchOptionButton>
-          </form>
+          </SearchBarForm>
         </SearchBarContainer>
 
         <FolderContainer>
