@@ -1,7 +1,9 @@
 import styled from "styled-components"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef, useContext } from "react"
 
 import template from "../../data.json"
+import { NewFolderDialog } from "../dialogs/NewFolderDialog"
+import { ExtensionContext } from "../ContextRoot"
 
 const key = "Template"
 
@@ -62,7 +64,6 @@ const FolderItemLink = styled.a`
     text-decoration: none;
 `
 
-
 // Adding new folder
 const AddFolderButton = styled.button`
     font-size: 16px;
@@ -70,34 +71,25 @@ const AddFolderButton = styled.button`
     padding: .25em .65em;
 `
 
-const Modal = styled.section`
-    width: 50vw;
-    height: 50vh;
-    position: fixed;
-    border: .5px solid #000;
-    background-color: #fff;
-`
-
-
-
 export function Folders() {
 
-    // Creating new folder
-    const [showCreatingFolderModal, setCreatingFolderModal] = useState(false)
-    const handleOpenCreatingFolderModal = () => setCreatingFolderModal(!showCreatingFolderModal)
+  // Folder is open
+  const [isFolderOpen, setIsFolderOpen] = useState({})
+  // Loading the data
+  const [data, setData] = useState(null)
 
-    // Folder is open
-    const [isFolderOpen, setIsFolderOpen] = useState({})
-    const onOpenFolder = (folder) => {
-      if (isFolderOpen.id === folder.id) {
-          setIsFolderOpen({}); // close the folder if it's already open
-      } else {
-          setIsFolderOpen(folder); // open the folder
-      }
+  const {stateNewFolderDialog} = useContext(ExtensionContext)
+
+  // Folder is open
+  const onOpenFolder = (folder) => {
+    if (isFolderOpen.id === folder.id) {
+        setIsFolderOpen({}); // close the folder if it's already open
+    } else {
+        setIsFolderOpen(folder); // open the folder
+    }
   }
 
   // Loading the data
-  const [data, setData] = useState(null)
   useEffect(() => {
     // If user is using the chrome extension or uses the preview
     if (chrome.storage) {
@@ -112,6 +104,8 @@ export function Folders() {
   if (!data) {
     return <div>Loading...</div>
   }
+
+
 
     return (
         <FolderSection>
@@ -139,15 +133,10 @@ export function Folders() {
                 </FolderStructure>
             ))}
             <FolderStructure>
-                <AddFolderButton onClick={handleOpenCreatingFolderModal}>
+                <AddFolderButton onClick={() => stateNewFolderDialog(true)}>
                     <i className="fa-solid fa-plus"></i>
                 </AddFolderButton>
-                {
-                    showCreatingFolderModal && 
-                    <Modal>
-                        Test
-                    </Modal>
-                }
+                <NewFolderDialog />
             </FolderStructure>
         </FolderSection>
     )
