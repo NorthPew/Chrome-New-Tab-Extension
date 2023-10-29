@@ -6,7 +6,7 @@ import { NewFolderDialog } from "../dialogs/NewFolderDialog"
 import { ExtensionContext } from "../ContextRoot"
 
 // Folder
-const FolderSection = styled.section`
+const FoldersSection = styled.section`
   display: grid;
   grid-template-columns: repeat(auto-fit, 100px);
   column-gap: 10px;
@@ -27,9 +27,10 @@ const FolderStructure = styled.section`
   min-height: 30px;
 `
 
-const FolderContainer = styled.section`
+const FolderContentArea = styled.section`
   min-width: 20vw;
-  min-height: 5vh;
+  min-height: 130px;
+  padding: .25em;
   border: .5px solid #000;
   display: flex;
   column-gap: 15px;
@@ -61,15 +62,18 @@ const AddFolderButton = styled.button`
     padding: .25em .65em;
 `
 
+const DisplayCurrentFolder = styled.div`
+  height: auto;
+  width: auto;
+`
+
 export function Folders() {
-  const {LS_KEY} = useContext(ExtensionContext)
+  const {LS_KEY, stateNewFolderDialog} = useContext(ExtensionContext)
 
   // Folder is open
   const [isFolderOpen, setIsFolderOpen] = useState({})
   // Loading the data
   const [data, setData] = useState(null)
-
-  const {stateNewFolderDialog} = useContext(ExtensionContext)
 
   // Folder is open
   const onOpenFolder = (folder) => {
@@ -97,38 +101,44 @@ export function Folders() {
   }
 
 
-
-    return (
-        <FolderSection>
+  return (
+    <>
+      <FoldersSection>
         {
-        data.folders.map((folder) => (
-                <FolderStructure key={folder.id}>
-                  <FolderButton onClick={() => onOpenFolder(folder)}>{folder.title}</FolderButton>
-                    {
-                      isFolderOpen.id === folder.id && (
-                        <FolderContainer>
-                          {
-                            folder.contents.map((content) => (
-                              <FolderItem key={"Folder " + folder.id + " Item " + content.title}>
-                                <FolderItemLink  href={content.link}>
-                                    <FolderItemImage src={content.icon} alt={content.title} />
-                                  <FolderItemLegend>{content.title}</FolderItemLegend>
-                                </FolderItemLink>
-                              </FolderItem>
-                          ))
-                          }
-                        </FolderContainer>
-                        
-                      )
-                    }
-                </FolderStructure>
-            ))}
-            <FolderStructure>
-                <AddFolderButton onClick={() => stateNewFolderDialog(true)}>
-                    <i className="fa-solid fa-plus"></i>
-                </AddFolderButton>
-                <NewFolderDialog />
+          data.folders.map((folder) => (
+            <FolderStructure key={folder.id}>
+              <FolderButton onClick={() => onOpenFolder(folder)}>{folder.title}</FolderButton>
             </FolderStructure>
-        </FolderSection>
-    )
+          ))
+        }
+        <FolderStructure>
+          <AddFolderButton onClick={() => stateNewFolderDialog(true)}>
+            <i className="fa-solid fa-plus"></i>
+          </AddFolderButton>
+          <NewFolderDialog />
+        </FolderStructure>
+      </FoldersSection>
+      <DisplayCurrentFolder>
+        {
+            data.folders.map((folder) => (
+              isFolderOpen.id === folder.id && (
+                <FolderContentArea key={"Folder " + folder.id + "Folder Title: " + folder.title}>
+                  {
+                    folder.contents.map((content) => (
+                      <FolderItem key={"Folder " + folder.id + " Item " + content.title}>
+                        <FolderItemLink  href={content.link}>
+                          <FolderItemImage src={content.icon} alt={content.title} />
+                          <FolderItemLegend>{content.title}</FolderItemLegend>
+                        </FolderItemLink>
+                      </FolderItem>
+                    ))
+                  }
+                </FolderContentArea>  
+              )
+            ))
+          }
+      </DisplayCurrentFolder>
+        
+    </>
+  )
 }
