@@ -25,19 +25,41 @@ export function NewFolderDialog() {
 
             console.log("Creating a new empty folder. Title: ", newFolderTitle);
 
-            let parseTemplate = JSON.parse(localStorage.getItem(LS_KEY))
+            if (chrome.storage) {
+                chrome.storage.local.get(['LS_KEY'], function(result) {
+                    let parseTemplate = result.LS_KEY;
 
-            let newEmptyFolder = {
-                id: parseTemplate.folders.length + 1,
-                title: newFolderTitle,
-                contents: []
+                    let newEmptyFolder = {
+                        id: parseTemplate.folders.length + 1,
+                        title: newFolderTitle,
+                        contents: []
+                    }
+                
+                    parseTemplate.folders.push(newEmptyFolder);
+
+                    console.log("Chrome storage local: New folder: ", newEmptyFolder);
+                
+                    // Save the updated template back to chrome.storage.local
+                    chrome.storage.local.set({LS_KEY: parseTemplate}, function() {
+                        console.log('Value is now set to ', parseTemplate);
+                    });
+                });
+
+            } else {
+                let parseTemplate = JSON.parse(localStorage.getItem(LS_KEY))
+
+                let newEmptyFolder = {
+                    id: parseTemplate.folders.length + 1,
+                    title: newFolderTitle,
+                    contents: []
+                }
+
+                console.log("Local storage: New folder: ", newEmptyFolder);
+    
+                parseTemplate.folders.push(newEmptyFolder)
+    
+                localStorage.setItem(LS_KEY, JSON.stringify(parseTemplate))
             }
-
-            console.log("New Folder: ", newEmptyFolder);
-
-            parseTemplate.folders.push(newEmptyFolder)
-
-            localStorage.setItem(LS_KEY, JSON.stringify(parseTemplate))
         } 
     }
 
