@@ -10,7 +10,7 @@ const Dialog = styled.dialog`
 
 export function NewFolderDialog() {
 
-    const {stateNewFolderDialog, newFolderDialogRef} = useContext(ExtensionContext)
+    const {stateNewFolderDialog, newFolderDialogRef, LS_KEY} = useContext(ExtensionContext)
 
     const [newFolderTitle, setNewFolderTitle] = useState("")
 
@@ -25,7 +25,7 @@ export function NewFolderDialog() {
 
             console.log("Creating a new empty folder. Title: ", newFolderTitle);
 
-            let parseTemplate = JSON.parse(localStorage.getItem("Template"))
+            let parseTemplate = JSON.parse(localStorage.getItem(LS_KEY))
 
             let newEmptyFolder = {
                 id: parseTemplate.folders.length + 1,
@@ -37,7 +37,7 @@ export function NewFolderDialog() {
 
             parseTemplate.folders.push(newEmptyFolder)
 
-            localStorage.setItem("Template", JSON.stringify(parseTemplate))
+            localStorage.setItem(LS_KEY, JSON.stringify(parseTemplate))
         } 
     }
 

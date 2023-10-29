@@ -1,19 +1,9 @@
 import styled from "styled-components"
 import { useEffect, useState, useRef, useContext } from "react"
 
-import template from "../../data.json"
+
 import { NewFolderDialog } from "../dialogs/NewFolderDialog"
 import { ExtensionContext } from "../ContextRoot"
-
-const key = "Template"
-
-
-// If user is using the preview or using the extension in chrome directly
-if (chrome.storage) {
-    chrome.storage.local.set({ key: template })
-} else {
-    localStorage.setItem(key, JSON.stringify(template))
-}
 
 // Folder
 const FolderSection = styled.section`
@@ -72,6 +62,7 @@ const AddFolderButton = styled.button`
 `
 
 export function Folders() {
+  const {LS_KEY} = useContext(ExtensionContext)
 
   // Folder is open
   const [isFolderOpen, setIsFolderOpen] = useState({})
@@ -93,11 +84,11 @@ export function Folders() {
   useEffect(() => {
     // If user is using the chrome extension or uses the preview
     if (chrome.storage) {
-        chrome.storage.local.get(["key"], function(result) {
+        chrome.storage.local.get(["SK"], function(result) {
             setData(result.key);
           });
     } else {
-        setData(JSON.parse(localStorage.getItem(key)))
+        setData(JSON.parse(localStorage.getItem(LS_KEY)))
     }
   }, []);
 
