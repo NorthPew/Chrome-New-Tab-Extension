@@ -12,9 +12,15 @@ const ContextRoot = ({children}) => {
             // If user is using the preview or using the extension in chrome directly
         if (chrome.storage) {
             console.log("Using Chrome storage local!");
-            if(!chrome.storage.local.get(['key'])) {
-                chrome.storage.local.set({ key: templateData })
-            }
+            chrome.storage.local.get(['key'], function(result) {
+                // If 'key' doesn't exist in chrome.storage.local
+                if (result.key === undefined) {
+                    // Set 'key' in chrome.storage.local
+                    chrome.storage.local.set({ key: templateData }, function() {
+                        console.log('Value is set to ' + templateData);
+                    });
+                }
+            });
         } else {
             console.log("Using local storage!");
             localStorage.setItem(LS_KEY, JSON.stringify(templateData))
