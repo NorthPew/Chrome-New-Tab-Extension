@@ -88,7 +88,7 @@ export function Folders() {
   useEffect(() => {
     // If user is using the chrome extension or uses the preview
     if (chrome.storage) {
-        chrome.storage.local.get(["SK"], function(result) {
+        chrome.storage.local.get(["key"], function(result) {
             setData(result.key);
           });
     } else {

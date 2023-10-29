@@ -26,8 +26,8 @@ export function NewFolderDialog() {
             console.log("Creating a new empty folder. Title: ", newFolderTitle);
 
             if (chrome.storage) {
-                chrome.storage.local.get(['LS_KEY'], function(result) {
-                    let parseTemplate = result.LS_KEY;
+                chrome.storage.local.get(['key'], function(result) {
+                    let parseTemplate = result.key;
 
                     let newEmptyFolder = {
                         id: parseTemplate.folders.length + 1,
@@ -40,7 +40,7 @@ export function NewFolderDialog() {
                     console.log("Chrome storage local: New folder: ", newEmptyFolder);
                 
                     // Save the updated template back to chrome.storage.local
-                    chrome.storage.local.set({LS_KEY: parseTemplate}, function() {
+                    chrome.storage.local.set({key: parseTemplate}, function() {
                         console.log('Value is now set to ', parseTemplate);
                     });
                 });
