@@ -5,7 +5,7 @@ export const ExtensionContext = createContext()
 import templateData from "../data.json"
 
 const ContextRoot = ({children}) => {    
-
+    // Local storage
     const LS_KEY = "NewTabExtension_LSK"
     
     if (!localStorage.getItem(LS_KEY)) {
@@ -37,8 +37,21 @@ const ContextRoot = ({children}) => {
         }
     }
 
+    // New folder item
+    const newFolderItemDialogRef = useRef();
+    const stateNewFolderItemDialog = (state) => {
+        if (state) {
+            newFolderItemDialogRef.current.showModal();
+        } else {
+            newFolderItemDialogRef.current.close();
+        }
+    }
+
+    // Edit mode
+    const [editMode, setEditMode] = useState(false)
+
     return (
-        <ExtensionContext.Provider value={{stateNewFolderDialog, newFolderDialogRef, LS_KEY}}>
+        <ExtensionContext.Provider value={{stateNewFolderDialog, stateNewFolderItemDialog, newFolderItemDialogRef, newFolderDialogRef,  LS_KEY, editMode, setEditMode}}>
             {children}
         </ExtensionContext.Provider>
     )

@@ -3,6 +3,7 @@ import { useEffect, useState, useRef, useContext } from "react"
 
 
 import { NewFolderDialog } from "../dialogs/NewFolderDialog"
+import { NewFolderItemDialog } from "../dialogs/NewFolderItemDialog"
 import { ExtensionContext } from "../ContextRoot"
 
 // Folder
@@ -55,20 +56,29 @@ const FolderItemLink = styled.a`
     text-decoration: none;
 `
 
-// Adding new folder
-const AddFolderButton = styled.button`
-    font-size: 16px;
-    border-radius: 15px;
-    padding: .25em .65em;
-`
-
 const DisplayCurrentFolder = styled.div`
   height: auto;
   width: auto;
 `
 
+const FolderItemIcon = styled.div`
+    width: 65px;
+    height: 65px;
+    display: grid;
+    place-content: center;
+`
+
+const FolderItemButton = styled.div`
+  border: none;
+  height: 75px;
+  width: 65px;
+  background-color: transparent;
+  text-align: center;
+  cursor: pointer;
+`
+
 export function Folders() {
-  const {LS_KEY, stateNewFolderDialog} = useContext(ExtensionContext)
+  const {LS_KEY, stateNewFolderDialog, stateNewFolderItemDialog, editMode} = useContext(ExtensionContext)
 
   // Folder is open
   const [isFolderOpen, setIsFolderOpen] = useState({})
@@ -111,13 +121,17 @@ export function Folders() {
             </FolderStructure>
           ))
         }
-        <FolderStructure>
-          <AddFolderButton onClick={() => stateNewFolderDialog(true)}>
-            <i className="fa-solid fa-plus"></i>
-          </AddFolderButton>
-          <NewFolderDialog />
-        </FolderStructure>
-      </FoldersSection>
+        {
+          editMode && (
+            <FolderStructure>
+            <FolderButton onClick={() => stateNewFolderDialog(true)}>
+              <i className="fa-solid fa-plus"></i>
+            </FolderButton>
+            <NewFolderDialog />
+          </FolderStructure>
+          )
+        }
+        </FoldersSection>
       <DisplayCurrentFolder>
         {
             data.folders.map((folder) => (
@@ -132,6 +146,22 @@ export function Folders() {
                         </FolderItemLink>
                       </FolderItem>
                     ))
+                  }
+                  {
+                    editMode && (
+                      <>
+                        <FolderItemButton onClick={() => stateNewFolderItemDialog(true)}>
+                          <FolderItemLink>
+                            <FolderItemIcon>
+                              <i className="fa-solid fa-plus"></i>
+                            </FolderItemIcon>
+                            <FolderItemLegend>Add new bookmark</FolderItemLegend>
+                          </FolderItemLink>
+                      </FolderItemButton>
+                      <NewFolderItemDialog />
+                      </>
+
+                    )
                   }
                 </FolderContentArea>  
               )

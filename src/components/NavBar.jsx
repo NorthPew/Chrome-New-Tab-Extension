@@ -1,4 +1,6 @@
+import { useContext, useState } from "react"
 import styled from "styled-components"
+import { ExtensionContext } from "../ContextRoot"
 
 // Navbar
 const NavBarContainer = styled.nav`
@@ -19,10 +21,17 @@ const NavBarCircleButton = styled.button`
   height: 40px;
 `
 
-export const NavBar = () => (
+export function NavBar() {
+  const {editMode, setEditMode} = useContext(ExtensionContext)
+
+
+  return (
     <NavBarContainer>
-        <NavBarCircleButton><i className="fa-solid fa-cog"></i></NavBarCircleButton>
-        <NavBarCircleButton><i className="fa-brands fa-google"></i></NavBarCircleButton>
-        <NavBarCircleButton><i className="fa-brands fa-microsoft"></i></NavBarCircleButton>
-      </NavBarContainer>
-)
+    <NavBarCircleButton title="Settings"><i className="fa-solid fa-cog"></i></NavBarCircleButton>
+    <NavBarCircleButton title="Edit mode" onClick={() => setEditMode(!editMode)}><i className="fa-solid fa-pen"></i></NavBarCircleButton>
+    <NavBarCircleButton title="Google quick menu"><i className="fa-brands fa-google"></i></NavBarCircleButton>
+    <NavBarCircleButton title="Microsoft quick menu"><i className="fa-brands fa-microsoft"></i></NavBarCircleButton>
+  </NavBarContainer>
+  )
+}
+
