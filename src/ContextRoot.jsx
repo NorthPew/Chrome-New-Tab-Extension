@@ -27,6 +27,8 @@ const ContextRoot = ({children}) => {
         }
     }
 
+    // Dialogs
+
     // New folder
     const newFolderDialogRef = useRef();
     const stateNewFolderDialog = (state) => {
@@ -50,8 +52,14 @@ const ContextRoot = ({children}) => {
     // Edit mode
     const [editMode, setEditMode] = useState(false)
 
+    // data stream
+    const [data, setData] = useState(null)
+
+    // Open folder
+    const [isFolderOpen, setIsFolderOpen] = useState({})
+
     return (
-        <ExtensionContext.Provider value={{stateNewFolderDialog, stateNewFolderItemDialog, newFolderItemDialogRef, newFolderDialogRef,  LS_KEY, editMode, setEditMode}}>
+        <ExtensionContext.Provider value={{data, isFolderOpen, setIsFolderOpen, setData, stateNewFolderDialog, stateNewFolderItemDialog, newFolderItemDialogRef, newFolderDialogRef, LS_KEY, editMode, setEditMode}}>
             {children}
         </ExtensionContext.Provider>
     )

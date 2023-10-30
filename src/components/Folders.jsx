@@ -1,23 +1,35 @@
 import styled from "styled-components"
 import { useEffect, useState, useRef, useContext } from "react"
 
-
-import { NewFolderDialog } from "../dialogs/NewFolderDialog"
-import { NewFolderItemDialog } from "../dialogs/NewFolderItemDialog"
+// Context
 import { ExtensionContext } from "../ContextRoot"
 
+// Dialogs
+import { NewFolderDialog } from "../dialogs/NewFolderDialog"
+import { NewFolderItemDialog } from "../dialogs/NewFolderItemDialog"
+import { FolderDialog } from "../dialogs/FolderDialog"
+
+// Styled
 // Folder
 const FoldersSection = styled.section`
   display: grid;
   grid-template-columns: repeat(auto-fit, 100px);
   column-gap: 10px;
-  row-gap: 10px;
 `
 
 const FolderButton = styled.button`
   font-size: 16px;
   border-radius: 15px;
   padding: .25em .65em;
+  border: .5px solid #000;
+`
+
+const FolderTitleSummary = styled.summary`
+  font-size: 16px;
+  border-radius: 15px;
+  padding: .25em .65em;
+  border: .5px solid #000;
+  list-style: none;
 `
 
 const FolderStructure = styled.section`
@@ -28,71 +40,9 @@ const FolderStructure = styled.section`
   min-height: 30px;
 `
 
-const FolderContentArea = styled.section`
-  min-width: 20vw;
-  min-height: 130px;
-  padding: .25em;
-  border: .5px solid #000;
-  display: flex;
-  column-gap: 15px;
-  flex-flow: row wrap;
-`
-
-const FolderItem = styled.div`
-    height: 75px;
-    width: 65px;
-`
-
-const FolderItemLegend = styled.legend`
-    text-align: center;
-`
-
-const FolderItemImage = styled.img`
-    width: 65px;
-    height: 65px;
-`
-
-const FolderItemLink = styled.a`
-    text-decoration: none;
-`
-
-const DisplayCurrentFolder = styled.div`
-  height: auto;
-  width: auto;
-`
-
-const FolderItemIcon = styled.div`
-    width: 65px;
-    height: 65px;
-    display: grid;
-    place-content: center;
-`
-
-const FolderItemButton = styled.div`
-  border: none;
-  height: 75px;
-  width: 65px;
-  background-color: transparent;
-  text-align: center;
-  cursor: pointer;
-`
 
 export function Folders() {
-  const {LS_KEY, stateNewFolderDialog, stateNewFolderItemDialog, editMode} = useContext(ExtensionContext)
-
-  // Folder is open
-  const [isFolderOpen, setIsFolderOpen] = useState({})
-  // Loading the data
-  const [data, setData] = useState(null)
-
-  // Folder is open
-  const onOpenFolder = (folder) => {
-    if (isFolderOpen.id === folder.id) {
-        setIsFolderOpen({}); // close the folder if it's already open
-    } else {
-        setIsFolderOpen(folder); // open the folder
-    }
-  }
+  const {LS_KEY, stateNewFolderDialog, editMode, data, setData} = useContext(ExtensionContext)
 
   // Loading the data
   useEffect(() => {
@@ -117,7 +67,10 @@ export function Folders() {
         {
           data.folders.map((folder) => (
             <FolderStructure key={folder.id}>
-              <FolderButton onClick={() => onOpenFolder(folder)}>{folder.title}</FolderButton>
+              <details>
+                <FolderTitleSummary>{folder.title}</FolderTitleSummary>
+                <FolderDialog folder={folder} />
+              </details>
             </FolderStructure>
           ))
         }
@@ -132,42 +85,7 @@ export function Folders() {
           )
         }
         </FoldersSection>
-      <DisplayCurrentFolder>
-        {
-            data.folders.map((folder) => (
-              isFolderOpen.id === folder.id && (
-                <FolderContentArea key={"Folder " + folder.id + "Folder Title: " + folder.title}>
-                  {
-                    folder.contents.map((content) => (
-                      <FolderItem key={"Folder " + folder.id + " Item " + content.title}>
-                        <FolderItemLink  href={content.link}>
-                          <FolderItemImage src={content.icon} alt={content.title} />
-                          <FolderItemLegend>{content.title}</FolderItemLegend>
-                        </FolderItemLink>
-                      </FolderItem>
-                    ))
-                  }
-                  {
-                    editMode && (
-                      <>
-                        <FolderItemButton onClick={() => stateNewFolderItemDialog(true)}>
-                          <FolderItemLink>
-                            <FolderItemIcon>
-                              <i className="fa-solid fa-plus"></i>
-                            </FolderItemIcon>
-                            <FolderItemLegend>Add new bookmark</FolderItemLegend>
-                          </FolderItemLink>
-                      </FolderItemButton>
-                      <NewFolderItemDialog />
-                      </>
-
-                    )
-                  }
-                </FolderContentArea>  
-              )
-            ))
-          }
-      </DisplayCurrentFolder>
+        <NewFolderItemDialog />
         
     </>
   )
