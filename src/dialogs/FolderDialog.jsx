@@ -54,7 +54,7 @@ export function FolderDialog({folder}) {
             <FolderContentDialog key={"Folder " + folder.id + " Folder Title: " + folder.title}>
             {
                 folder.contents.map((content) => (
-                <FolderBookmark key={"Folder " + folder.id + " Bookmark " + content.title}>
+                <FolderBookmark key={"Folder " + folder.id + " Bookmark " + content.title + " Id " + content.id}>
                     <FolderBookmarkLink  href={content.link}>
                     <FolderBookmarkImage src={content.icon} alt={content.title} />
                     <FolderBookmarkLegend>{content.title}</FolderBookmarkLegend>
@@ -65,7 +65,7 @@ export function FolderDialog({folder}) {
             {
                 editMode && (
                 <>
-                    <FolderBookmarkButton onClick={() => stateNewFolderBookmarkDialog(true)}>
+                    <FolderBookmarkButton onClick={() => stateNewFolderBookmarkDialog(true, folder)}>
                     <FolderBookmarkLink>
                         <FolderBookmarkIcon>
                         <i className="fa-solid fa-plus"></i>

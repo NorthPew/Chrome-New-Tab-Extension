@@ -67,7 +67,7 @@ export function NewFolderDialog() {
     <Dialog ref={newFolderDialogRef}>
         <button onClick={() => stateNewFolderDialog(false)}>Exit</button>
         <form method="dialog" onSubmit={handleSubmit}>
-            <h1>Add new folder entry</h1>
+            <h1>Add new folder</h1>
             <label htmlFor="new-folder-title-input">Folder title: </label>
             <input type="text" id="new-folder-title-input" placeholder="😎 Socials" onChange={handleOnChangeNewFolderTitle} value={newFolderTitle}></input>
             <button type="submit" onClick={() => stateNewFolderDialog(false)}>Create</button>

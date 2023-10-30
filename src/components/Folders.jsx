@@ -73,7 +73,7 @@ export function Folders() {
                 <FolderDialog folder={folder} />
               </details>
             </FolderStructure>
-            <NewFolderBookmarkDialog key={"new-bookmark-dialog-" + folder.id} folderId={folder.id} folderTitle={folder.title} />
+            
             </>
           ))
         }
@@ -87,10 +87,8 @@ export function Folders() {
           </FolderStructure>
           )
         }
-                
         </FoldersSection>
-
-        
+        <NewFolderBookmarkDialog />
     </>
   )
 }

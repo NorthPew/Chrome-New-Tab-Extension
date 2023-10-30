@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ExtensionContext } from "../ContextRoot"
 
 const Dialog = styled.dialog`
@@ -8,9 +8,9 @@ const Dialog = styled.dialog`
   padding: .75em;
 `
 
-export function NewFolderBookmarkDialog({folderId, folderTitle}) {
+export function NewFolderBookmarkDialog() {
 
-    const {stateNewFolderBookmarkDialog, newFolderBookmarkDialogRef, LS_KEY} = useContext(ExtensionContext)
+    const {stateNewFolderBookmarkDialog, newFolderBookmarkDialogRef, selectOpenedFolder, LS_KEY} = useContext(ExtensionContext)
 
     const [newFolderBookmarkTitle, setNewFolderBookmarkTitle] = useState("")
     const [newFolderBookmarkIcon, setNewFolderBookmarkIcon] = useState("")
@@ -50,7 +50,7 @@ export function NewFolderBookmarkDialog({folderId, folderTitle}) {
                         link: newFolderBookmarkLink
                     }
                     
-                    let findFolder = parseTemplate.folders.find(folder => folder.id === folderId);
+                    let findFolder = parseTemplate.folders.find(folder => folder.id === selectOpenedFolder.id);
     
                     if (findFolder) {
                         findFolder.contents.push(newBookmark);
@@ -58,7 +58,7 @@ export function NewFolderBookmarkDialog({folderId, folderTitle}) {
                         console.log(`No folder found with id ${folderId}`);
                     }
 
-                    console.log(`Chrome storage local: New bookmark: ${newBookmark} in folder id: ${folderId}`);
+                    console.log(`Chrome storage local: New bookmark: ${JSON.stringify(newBookmark)} in folder id: ${selectOpenedFolder.id}`);
                 
                     // Save the updated template back to chrome.storage.local
                     chrome.storage.local.set({key: parseTemplate}, function() {
@@ -80,7 +80,7 @@ export function NewFolderBookmarkDialog({folderId, folderTitle}) {
                     link: newFolderBookmarkLink
                 }
                 
-                let findFolder = parseTemplate.folders.find(folder => folder.id === folderId);
+                let findFolder = parseTemplate.folders.find(folder => folder.id === selectOpenedFolder.id);
 
                 if (findFolder) {
                     findFolder.contents.push(newBookmark);
@@ -88,7 +88,7 @@ export function NewFolderBookmarkDialog({folderId, folderTitle}) {
                     console.log(`No folder found with id ${folderId}`);
                 }
 
-                console.log(`Local storage: New bookmark: ${newBookmark} in folder id: ${folderId}`);
+                console.log(`Local storage: New bookmark: ${JSON.stringify(newBookmark)} in folder id: ${selectOpenedFolder.id}`);
     
                 localStorage.setItem(LS_KEY, JSON.stringify(parseTemplate))
             }
@@ -99,16 +99,16 @@ export function NewFolderBookmarkDialog({folderId, folderTitle}) {
     <Dialog ref={newFolderBookmarkDialogRef}>
         <button onClick={() => stateNewFolderBookmarkDialog(false)}>Exit</button>
         <form method="dialog" onSubmit={handleSubmit}>
-            <h1>Add new folder bookmark entry in folder {folderTitle}</h1>
+            <h1>Add new folder bookmark in folder {selectOpenedFolder.title}</h1>
             
-            <label htmlFor="new-folder-item-title-input">Folder item title: </label>
-            <input type="text" id="new-folder-item-title-input" placeholder="Google Fonts" onChange={handleOnChangeNewFolderItemTitle} value={newFolderBookmarkTitle}></input>
+            <label htmlFor="new-folder-bookmark-title-input">Folder bookmark title: </label>
+            <input type="text" id="new-folder-bookmark-title-input" placeholder="Google Fonts" onChange={handleOnChangeNewFolderItemTitle} value={newFolderBookmarkTitle}></input>
             
-            <label htmlFor="new-folder-item-icon-input">Folder item icon: </label>
-            <input type="text" id="new-folder-item-icon-input" placeholder="https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg" onChange={handleOnChangeNewFolderItemIcon} value={newFolderBookmarkIcon}></input>
+            <label htmlFor="new-folder-bookmark-icon-input">Folder bookmark icon: </label>
+            <input type="text" id="new-folder-bookmark-icon-input" placeholder="https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg" onChange={handleOnChangeNewFolderItemIcon} value={newFolderBookmarkIcon}></input>
             
-            <label htmlFor="new-folder-item-link-input">Folder item icon: </label>
-            <input type="text" id="new-folder-item-link-input" placeholder="https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg" onChange={handleOnChangeNewFolderItemLink} value={newFolderBookmarkLink}></input>
+            <label htmlFor="new-folder-bookmark-link-input">Folder bookmark link: </label>
+            <input type="text" id="new-folder-bookmark-link-input" placeholder="https://fonts.google.com/icons" onChange={handleOnChangeNewFolderItemLink} value={newFolderBookmarkLink}></input>
             <button type="submit" onClick={() => stateNewFolderBookmarkDialog(false)}>Create</button>
         </form>
     </Dialog>
