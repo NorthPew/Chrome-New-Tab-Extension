@@ -31,6 +31,12 @@ export function NavBar() {
     <NavBarCircleButton title="Edit mode" onClick={() => setEditMode(!editMode)}><i className="fa-solid fa-pen"></i></NavBarCircleButton>
     <NavBarCircleButton title="Google quick menu"><i className="fa-brands fa-google"></i></NavBarCircleButton>
     <NavBarCircleButton title="Microsoft quick menu"><i className="fa-brands fa-microsoft"></i></NavBarCircleButton>
+    {
+      editMode && (
+        <NavBarCircleButton title="Add new quick menu"><i className="fa-solid fa-plus"></i></NavBarCircleButton>
+        
+      )
+    }
   </NavBarContainer>
   )
 }

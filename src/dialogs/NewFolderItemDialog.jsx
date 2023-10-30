@@ -14,6 +14,7 @@ export function NewFolderItemDialog() {
 
     const [newFolderItemTitle, setNewFolderItemTitle] = useState("")
     const [newFolderItemIcon, setNewFolderItemIcon] = useState("")
+    const [newFolderItemLink, setNewFolderItemLink] = useState("")
 
     function handleOnChangeNewFolderItemTitle(e) {
         setNewFolderItemTitle(e.target.value)
@@ -21,6 +22,10 @@ export function NewFolderItemDialog() {
 
     function handleOnChangeNewFolderItemIcon(e) {
         setNewFolderItemIcon(e.target.value)
+    }
+
+    function handleOnChangeNewFolderItemLink(e) {
+        setNewFolderItemLink(e.target.value)
     }
 
     function handleSubmit(event) {
@@ -32,10 +37,15 @@ export function NewFolderItemDialog() {
         <button onClick={() => stateNewFolderItemDialog(false)}>Exit</button>
         <form method="dialog" onSubmit={handleSubmit}>
             <h1>Add new folder item entry</h1>
+            
             <label htmlFor="new-folder-item-title-input">Folder item title: </label>
             <input type="text" id="new-folder-item-title-input" placeholder="Google Fonts" onChange={handleOnChangeNewFolderItemTitle} value={newFolderItemTitle}></input>
+            
             <label htmlFor="new-folder-item-icon-input">Folder item icon: </label>
-            <input type="text" id="new-folder-item-icon-input" placeholder="https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg" onChange={handleOnChangeNewFolderItemIcon} value={newFolderItemTitle}></input>
+            <input type="text" id="new-folder-item-icon-input" placeholder="https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg" onChange={handleOnChangeNewFolderItemIcon} value={newFolderItemIcon}></input>
+            
+            <label htmlFor="new-folder-item-link-input">Folder item icon: </label>
+            <input type="text" id="new-folder-item-link-input" placeholder="https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg" onChange={handleOnChangeNewFolderItemLink} value={newFolderItemLink}></input>
             <button type="submit" onClick={() => stateNewFolderItemDialog(false)}>Create</button>
         </form>
     </Dialog>
