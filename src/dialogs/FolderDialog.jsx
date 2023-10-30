@@ -12,32 +12,32 @@ const FolderContentDialog = styled.dialog`
   flex-flow: row wrap;
 `
 
-const FolderItem = styled.div`
+const FolderBookmark = styled.div`
     height: 75px;
     width: 65px;
 `
 
-const FolderItemLegend = styled.legend`
+const FolderBookmarkLegend = styled.legend`
     text-align: center;
 `
 
-const FolderItemImage = styled.img`
+const FolderBookmarkImage = styled.img`
     width: 65px;
     height: 65px;
 `
 
-const FolderItemLink = styled.a`
+const FolderBookmarkLink = styled.a`
     text-decoration: none;
 `
 
-const FolderItemIcon = styled.div`
+const FolderBookmarkIcon = styled.div`
     width: 65px;
     height: 65px;
     display: grid;
     place-content: center;
 `
 
-const FolderItemButton = styled.div`
+const FolderBookmarkButton = styled.div`
   border: none;
   height: 75px;
   width: 65px;
@@ -47,32 +47,32 @@ const FolderItemButton = styled.div`
 `
 
 export function FolderDialog({folder}) {
-    const {editMode, stateNewFolderItemDialog} = useContext(ExtensionContext)
+    const {editMode, stateNewFolderBookmarkDialog} = useContext(ExtensionContext)
 
     return (
         <>
-            <FolderContentDialog key={"Folder " + folder.id + "Folder Title: " + folder.title}>
+            <FolderContentDialog key={"Folder " + folder.id + " Folder Title: " + folder.title}>
             {
                 folder.contents.map((content) => (
-                <FolderItem key={"Folder " + folder.id + " Item " + content.title}>
-                    <FolderItemLink  href={content.link}>
-                    <FolderItemImage src={content.icon} alt={content.title} />
-                    <FolderItemLegend>{content.title}</FolderItemLegend>
-                    </FolderItemLink>
-                </FolderItem>
+                <FolderBookmark key={"Folder " + folder.id + " Bookmark " + content.title}>
+                    <FolderBookmarkLink  href={content.link}>
+                    <FolderBookmarkImage src={content.icon} alt={content.title} />
+                    <FolderBookmarkLegend>{content.title}</FolderBookmarkLegend>
+                    </FolderBookmarkLink>
+                </FolderBookmark>
                 ))
             }
             {
                 editMode && (
                 <>
-                    <FolderItemButton onClick={() => stateNewFolderItemDialog(true)}>
-                    <FolderItemLink>
-                        <FolderItemIcon>
+                    <FolderBookmarkButton onClick={() => stateNewFolderBookmarkDialog(true)}>
+                    <FolderBookmarkLink>
+                        <FolderBookmarkIcon>
                         <i className="fa-solid fa-plus"></i>
-                        </FolderItemIcon>
-                        <FolderItemLegend>Add new bookmark</FolderItemLegend>
-                    </FolderItemLink>
-                </FolderItemButton>
+                        </FolderBookmarkIcon>
+                        <FolderBookmarkLegend>Add new bookmark</FolderBookmarkLegend>
+                    </FolderBookmarkLink>
+                </FolderBookmarkButton>
 
                 </>
         

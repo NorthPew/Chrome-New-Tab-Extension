@@ -6,7 +6,7 @@ import { ExtensionContext } from "../ContextRoot"
 
 // Dialogs
 import { NewFolderDialog } from "../dialogs/NewFolderDialog"
-import { NewFolderItemDialog } from "../dialogs/NewFolderItemDialog"
+import { NewFolderBookmarkDialog } from "../dialogs/NewFolderBookmarkDialog"
 import { FolderDialog } from "../dialogs/FolderDialog"
 
 // Styled
@@ -66,12 +66,15 @@ export function Folders() {
       <FoldersSection>
         {
           data.folders.map((folder) => (
+            <>
             <FolderStructure key={folder.id}>
               <details>
                 <FolderTitleSummary>{folder.title}</FolderTitleSummary>
                 <FolderDialog folder={folder} />
               </details>
             </FolderStructure>
+            <NewFolderBookmarkDialog key={"new-bookmark-dialog-" + folder.id} folderId={folder.id} folderTitle={folder.title} />
+            </>
           ))
         }
         {
@@ -84,8 +87,9 @@ export function Folders() {
           </FolderStructure>
           )
         }
+                
         </FoldersSection>
-        <NewFolderItemDialog />
+
         
     </>
   )

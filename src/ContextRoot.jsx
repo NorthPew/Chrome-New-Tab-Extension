@@ -40,12 +40,12 @@ const ContextRoot = ({children}) => {
     }
 
     // New folder item
-    const newFolderItemDialogRef = useRef();
-    const stateNewFolderItemDialog = (state) => {
+    const newFolderBookmarkDialogRef = useRef();
+    const stateNewFolderBookmarkDialog = (state) => {
         if (state) {
-            newFolderItemDialogRef.current.showModal();
+            newFolderBookmarkDialogRef.current.showModal();
         } else {
-            newFolderItemDialogRef.current.close();
+            newFolderBookmarkDialogRef.current.close();
         }
     }
 
@@ -59,7 +59,7 @@ const ContextRoot = ({children}) => {
     const [isFolderOpen, setIsFolderOpen] = useState({})
 
     return (
-        <ExtensionContext.Provider value={{data, isFolderOpen, setIsFolderOpen, setData, stateNewFolderDialog, stateNewFolderItemDialog, newFolderItemDialogRef, newFolderDialogRef, LS_KEY, editMode, setEditMode}}>
+        <ExtensionContext.Provider value={{data, isFolderOpen, setIsFolderOpen, setData, stateNewFolderDialog, stateNewFolderBookmarkDialog, newFolderBookmarkDialogRef, newFolderDialogRef, LS_KEY, editMode, setEditMode}}>
             {children}
         </ExtensionContext.Provider>
     )
