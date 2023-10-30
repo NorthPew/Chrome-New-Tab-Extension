@@ -59,8 +59,19 @@ const ContextRoot = ({children}) => {
     // Open folder
     const [selectOpenedFolder, setSelectOpenedFolder] = useState({})
 
+    // Browser Engine
+    const chosenSearchEngine = (engine, searchTerm) => {
+        if (engine.includes('google')) {
+            window.location = `https://google.com/search?q=${searchTerm}`;
+        } else if (engine.includes('bing')) {
+            window.location = `https://bing.com/search?q=${searchTerm}`;
+        } else if (engine.includes('ddg')) {
+            window.location = `https://duckduckgo.com/?q=${searchTerm}`;
+        }
+    }
+    
     return (
-        <ExtensionContext.Provider value={{data, selectOpenedFolder, setSelectOpenedFolder, setData, stateNewFolderDialog, stateNewFolderBookmarkDialog, newFolderBookmarkDialogRef, newFolderDialogRef, LS_KEY, editMode, setEditMode}}>
+        <ExtensionContext.Provider value={{data, setData, chosenSearchEngine, selectOpenedFolder, setSelectOpenedFolder, stateNewFolderDialog, stateNewFolderBookmarkDialog, newFolderBookmarkDialogRef, newFolderDialogRef, LS_KEY, editMode, setEditMode}}>
             {children}
         </ExtensionContext.Provider>
     )

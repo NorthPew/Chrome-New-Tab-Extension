@@ -1,6 +1,7 @@
 
-import { useState } from "react"
+import { useContext, useState } from "react"
 import styled from "styled-components"
+import { ExtensionContext } from "../ContextRoot"
 
 // Search
 const SearchBar = styled.input`
@@ -28,12 +29,12 @@ const SearchOptionButton = styled.button`
 export function Search() {
 
     const [searchTerm, setSearchTerm] = useState('')
-
+    const { chosenSearchEngine } = useContext(ExtensionContext) 
     
   const handleSubmit = (event) => {
     event.preventDefault();
     if (searchTerm !== "") {
-      window.location = `https://www.google.com/search?q=${searchTerm}`;
+      chosenSearchEngine("google", searchTerm)
     }
     
   }
