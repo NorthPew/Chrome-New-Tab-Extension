@@ -1,4 +1,25 @@
 {
+    "options": {
+        "search": {
+            "positions": {
+                "Y": "center",
+                "X": "center"
+            },
+            "engine": "google"
+        },
+        "folders": {
+            "positions": {
+                "Y": "center",
+                "X": "center"
+            }
+        },
+        "menus": {
+            "positions": {
+                "Y": "top",
+                "X": "right"
+            }
+        }
+    },
     "folders": [
         {
             "id": 1,

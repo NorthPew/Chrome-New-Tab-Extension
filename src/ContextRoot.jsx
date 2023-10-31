@@ -53,25 +53,17 @@ const ContextRoot = ({children}) => {
     // Edit mode
     const [editMode, setEditMode] = useState(false)
 
-    // data stream
-    const [data, setData] = useState(null)
+    // Folder data stream
+    const [foldersData, setFoldersData] = useState(null)
 
-    // Open folder
+    //Options data stream
+    const [optionsData, setOptionsData] = useState(null)
+
+    // Opened folder
     const [selectOpenedFolder, setSelectOpenedFolder] = useState({})
 
-    // Browser Engine
-    const chosenSearchEngine = (engine, searchTerm) => {
-        if (engine.includes('google')) {
-            window.location = `https://google.com/search?q=${searchTerm}`;
-        } else if (engine.includes('bing')) {
-            window.location = `https://bing.com/search?q=${searchTerm}`;
-        } else if (engine.includes('ddg')) {
-            window.location = `https://duckduckgo.com/?q=${searchTerm}`;
-        }
-    }
-    
     return (
-        <ExtensionContext.Provider value={{data, setData, chosenSearchEngine, selectOpenedFolder, setSelectOpenedFolder, stateNewFolderDialog, stateNewFolderBookmarkDialog, newFolderBookmarkDialogRef, newFolderDialogRef, LS_KEY, editMode, setEditMode}}>
+        <ExtensionContext.Provider value={{foldersData, setFoldersData, optionsData, setOptionsData, selectOpenedFolder, setSelectOpenedFolder, stateNewFolderDialog, stateNewFolderBookmarkDialog, newFolderBookmarkDialogRef, newFolderDialogRef, LS_KEY, editMode, setEditMode}}>
             {children}
         </ExtensionContext.Provider>
     )

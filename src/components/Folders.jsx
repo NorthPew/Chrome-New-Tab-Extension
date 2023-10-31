@@ -42,22 +42,22 @@ const FolderStructure = styled.section`
 
 
 export function Folders() {
-  const {LS_KEY, stateNewFolderDialog, editMode, data, setData} = useContext(ExtensionContext)
+  const {LS_KEY, stateNewFolderDialog, editMode, foldersData,setFoldersData} = useContext(ExtensionContext)
 
   // Loading the data
   useEffect(() => {
     // If user is using the chrome extension or uses the preview
     if (chrome.storage) {
         chrome.storage.local.get(["key"], function(result) {
-            setData(result.key);
+            setFoldersData(result.key);
           });
     } else {
-        setData(JSON.parse(localStorage.getItem(LS_KEY)))
+        setFoldersData(JSON.parse(localStorage.getItem(LS_KEY)).folders)
     }
   }, []);
 
-  if (!data) {
-    return <div>Loading...</div>
+  if (!foldersData) {
+    return <div>Loading folders...</div>
   }
 
 
@@ -65,7 +65,7 @@ export function Folders() {
     <>
       <FoldersSection>
         {
-          data.folders.map((folder) => (
+          foldersData.map((folder) => (
             <>
             <FolderStructure key={folder.id}>
               <details>
