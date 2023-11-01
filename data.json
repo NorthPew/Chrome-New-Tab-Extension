@@ -20,6 +20,9 @@
                 "X": "right"
             },
             "orientation": "landscape"
+        },
+        "bookmarks": {
+            "orientation": "portrait"
         }
     },
     "folders": [

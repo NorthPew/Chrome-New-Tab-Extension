@@ -5,16 +5,54 @@ import { ExtensionContext } from "../ContextRoot"
 const Dialog = styled.dialog`
   border-radius: 15px;
   border: .5px solid #000;
-  padding: .75em;
+  padding: 0px;
+`
+
+const DialogTitle = styled.h1`
+    padding: .05em .75em;
+`
+
+const Form = styled.form`
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+    height: 100%;
+`
+
+const ButtonSection = styled.section`
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+`
+
+const TabButton = styled.button`
+    flex-grow: 1;
+    border: 0px solid transparent;
+    background-color: transparent;
+`
+
+const ActionButton = styled.button`
+    flex-grow: 1;
+`
+
+const FormContainer = styled.section`
+    display: flex;
+    flex-flow: column wrap;
+    align-items: flex-start;
+    padding: .75em;
 `
 
 export function NewFolderBookmarkDialog() {
 
     const {stateNewFolderBookmarkDialog, newFolderBookmarkDialogRef, selectOpenedFolder, LS_KEY} = useContext(ExtensionContext)
 
+
+    // Inputs
     const [newFolderBookmarkTitle, setNewFolderBookmarkTitle] = useState("")
     const [newFolderBookmarkIcon, setNewFolderBookmarkIcon] = useState("")
     const [newFolderBookmarkLink, setNewFolderBookmarkLink] = useState("")
+    
+    const [openedTab, setOpenedTab] = useState("visuals")
 
     function handleOnChangeNewFolderItemTitle(e) {
         setNewFolderBookmarkTitle(e.target.value)
@@ -97,20 +135,46 @@ export function NewFolderBookmarkDialog() {
 
     return (
     <Dialog ref={newFolderBookmarkDialogRef}>
-        <button onClick={() => stateNewFolderBookmarkDialog(false)}>Exit</button>
-        <form method="dialog" onSubmit={handleSubmit}>
-            <h1>Add new folder bookmark in folder {selectOpenedFolder.title}</h1>
-            
-            <label htmlFor="new-folder-bookmark-title-input">Folder bookmark title: </label>
-            <input type="text" id="new-folder-bookmark-title-input" placeholder="Google Fonts" onChange={handleOnChangeNewFolderItemTitle} value={newFolderBookmarkTitle}></input>
-            
-            <label htmlFor="new-folder-bookmark-icon-input">Folder bookmark icon: </label>
-            <input type="text" id="new-folder-bookmark-icon-input" placeholder="https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg" onChange={handleOnChangeNewFolderItemIcon} value={newFolderBookmarkIcon}></input>
-            
-            <label htmlFor="new-folder-bookmark-link-input">Folder bookmark link: </label>
-            <input type="text" id="new-folder-bookmark-link-input" placeholder="https://fonts.google.com/icons" onChange={handleOnChangeNewFolderItemLink} value={newFolderBookmarkLink}></input>
-            <button type="submit" onClick={() => stateNewFolderBookmarkDialog(false)}>Create</button>
-        </form>
+
+        <Form method="dialog" onSubmit={handleSubmit}>
+            <DialogTitle>Add new bookmark in folder {selectOpenedFolder.title}</DialogTitle>
+            <ButtonSection>
+                <TabButton onClick={() => setOpenedTab("visuals")} style={{backgroundColor: openedTab === "visuals" ? "blue" : null, color: openedTab === "visuals" ? "white" : null}}>Visuals</TabButton>
+                <TabButton onClick={() => setOpenedTab("address")} style={{backgroundColor: openedTab === "address" ? "blue" : null, color: openedTab === "address" ? "white" : null}}>Address</TabButton>
+                <TabButton onClick={() => setOpenedTab("position")} disabled>Position</TabButton>
+                <TabButton onClick={() => setOpenedTab("preview")} disabled>Preview</TabButton>
+            </ButtonSection>
+            <FormContainer>
+
+                {
+                    openedTab === "visuals" && (
+                        <>
+                            <label htmlFor="new-folder-bookmark-title-input">Bookmark title: </label>
+                            <input type="text" id="new-folder-bookmark-title-input" placeholder="Google Fonts" onChange={handleOnChangeNewFolderItemTitle} value={newFolderBookmarkTitle}></input>
+                            
+                            <label htmlFor="new-folder-bookmark-icon-input">Bookmark icon: </label>
+                            <input type="text" id="new-folder-bookmark-icon-input" placeholder="https://www.gstatic.com/images/icons/material/apps/fonts/1x/catalog/v5/favicon.svg" onChange={handleOnChangeNewFolderItemIcon} value={newFolderBookmarkIcon}></input>
+                        </>
+
+                    )
+                }
+                {
+                    openedTab === "address" && (
+                        <>
+                            <label htmlFor="new-folder-bookmark-link-input">Bookmark address: </label>
+                            <input type="text" id="new-folder-bookmark-link-input" placeholder="https://fonts.google.com/icons" onChange={handleOnChangeNewFolderItemLink} value={newFolderBookmarkLink}></input>
+                        </>
+                    )
+                }
+
+                
+
+            </FormContainer>
+            <ButtonSection>
+                <ActionButton onClick={() => stateNewFolderBookmarkDialog(false)}>Cancel</ActionButton>
+                <ActionButton type="submit" onClick={() => stateNewFolderBookmarkDialog(false)}>Create</ActionButton>
+            </ButtonSection>
+        </Form>
     </Dialog>
     )
 }
