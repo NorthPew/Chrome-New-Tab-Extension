@@ -137,7 +137,7 @@ export function NewFolderBookmarkDialog() {
     <Dialog ref={newFolderBookmarkDialogRef}>
 
         <Form method="dialog" onSubmit={handleSubmit}>
-            <DialogTitle>Add new bookmark in folder {selectOpenedFolder.title}</DialogTitle>
+            <DialogTitle>Add a new bookmark in folder {selectOpenedFolder.title}</DialogTitle>
             <ButtonSection>
                 <TabButton onClick={() => setOpenedTab("visuals")} style={{backgroundColor: openedTab === "visuals" ? "blue" : null, color: openedTab === "visuals" ? "white" : null}}>Visuals</TabButton>
                 <TabButton onClick={() => setOpenedTab("address")} style={{backgroundColor: openedTab === "address" ? "blue" : null, color: openedTab === "address" ? "white" : null}}>Address</TabButton>

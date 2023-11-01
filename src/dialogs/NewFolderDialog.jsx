@@ -2,15 +2,52 @@ import styled from "styled-components"
 import { useContext, useState } from "react"
 import { ExtensionContext } from "../ContextRoot"
 
+
 const Dialog = styled.dialog`
   border-radius: 15px;
   border: .5px solid #000;
-  padding: .75em;
+  padding: 0px;
+`
+
+const DialogTitle = styled.h1`
+    padding: .05em .75em;
+`
+
+const Form = styled.form`
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+    height: 100%;
+`
+
+const ButtonSection = styled.section`
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+`
+
+const TabButton = styled.button`
+    flex-grow: 1;
+    border: 0px solid transparent;
+    background-color: transparent;
+`
+
+const ActionButton = styled.button`
+    flex-grow: 1;
+`
+
+const FormContainer = styled.section`
+    display: flex;
+    flex-flow: column wrap;
+    align-items: flex-start;
+    padding: .75em;
 `
 
 export function NewFolderDialog() {
 
     const {stateNewFolderDialog, newFolderDialogRef, LS_KEY} = useContext(ExtensionContext)
+
+    const [openedTab, setOpenedTab] = useState("visuals")
 
     const [newFolderTitle, setNewFolderTitle] = useState("")
 
@@ -65,13 +102,30 @@ export function NewFolderDialog() {
 
     return (
     <Dialog ref={newFolderDialogRef}>
-        <button onClick={() => stateNewFolderDialog(false)}>Exit</button>
-        <form method="dialog" onSubmit={handleSubmit}>
-            <h1>Add new folder</h1>
-            <label htmlFor="new-folder-title-input">Folder title: </label>
-            <input type="text" id="new-folder-title-input" placeholder="😎 Socials" onChange={handleOnChangeNewFolderTitle} value={newFolderTitle}></input>
-            <button type="submit" onClick={() => stateNewFolderDialog(false)}>Create</button>
-        </form>
+
+        <Form method="dialog" onSubmit={handleSubmit}>
+            <DialogTitle>Add a new folder</DialogTitle>
+            <ButtonSection>
+                <TabButton onClick={() => setOpenedTab("visuals")} style={{backgroundColor: openedTab === "visuals" ? "blue" : null, color: openedTab === "visuals" ? "white" : null}}>Visuals</TabButton>
+                <TabButton disabled>Position</TabButton>
+                <TabButton disabled>Preview</TabButton>
+            </ButtonSection>
+            <FormContainer>
+            {
+                openedTab === "visuals" && (
+                    <>
+                        <label htmlFor="new-folder-title-input">Folder title: </label>
+                        <input type="text" id="new-folder-title-input" placeholder="😎 Socials" onChange={handleOnChangeNewFolderTitle} value={newFolderTitle}></input>
+                    </>
+                )
+            }
+            </FormContainer>
+            <ButtonSection>
+                <ActionButton onClick={() => stateNewFolderDialog(false)}>Cancel</ActionButton>
+                <ActionButton type="submit" onClick={() => stateNewFolderDialog(false)}>Create</ActionButton>
+            </ButtonSection>
+
+        </Form>
     </Dialog>
     )
 }
