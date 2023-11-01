@@ -11,13 +11,15 @@
             "positions": {
                 "Y": "center",
                 "X": "center"
-            }
+            },
+            "orientation": "landscape"
         },
         "menus": {
             "positions": {
                 "Y": "top",
                 "X": "right"
-            }
+            },
+            "orientation": "landscape"
         }
     },
     "folders": [

@@ -49,7 +49,8 @@ export function Folders() {
     // If user is using the chrome extension or uses the preview
     if (chrome.storage) {
         chrome.storage.local.get(["key"], function(result) {
-            setFoldersData(result.key);
+            let data = result.key
+            setFoldersData(data.folders)
           });
     } else {
         setFoldersData(JSON.parse(localStorage.getItem(LS_KEY)).folders)

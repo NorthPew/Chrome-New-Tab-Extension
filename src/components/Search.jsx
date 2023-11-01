@@ -33,7 +33,10 @@ export function Search() {
     
     useEffect(() => {
       if (chrome.storage) {
-
+        chrome.storage.local.get(["key"], function(result) {
+          let data = result.key
+          setOptionsData(data.options)
+        });
       } else {
         setOptionsData(JSON.parse(localStorage.getItem(LS_KEY)).options)
       }
