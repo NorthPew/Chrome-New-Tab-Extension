@@ -121,7 +121,8 @@ export function NewFolderDialog() {
             }
             </FormContainer>
             <ButtonSection>
-                <ActionButton onClick={() => stateNewFolderDialog(false)}>Cancel</ActionButton>
+                <ActionButton type="button" onClick={() => stateNewFolderDialog(false)}>Cancel</ActionButton>
+                <ActionButton type="reset">Reset</ActionButton>
                 <ActionButton type="submit" onClick={() => stateNewFolderDialog(false)}>Create</ActionButton>
             </ButtonSection>
 

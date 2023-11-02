@@ -8,12 +8,13 @@ import { ExtensionContext } from "../ContextRoot"
 import { NewFolderDialog } from "../dialogs/NewFolderDialog"
 import { NewFolderBookmarkDialog } from "../dialogs/NewFolderBookmarkDialog"
 import { FolderDialog } from "../dialogs/FolderDialog"
+import { DeleteFolderDialog } from "../dialogs/DeleteFolderDialog"
 
 // Styled
 // Folder
 const FoldersSection = styled.section`
   display: grid;
-  grid-template-columns: repeat(auto-fit, 100px);
+  grid-template-columns: repeat(auto-fit, 125px);
   column-gap: 10px;
 `
 
@@ -25,11 +26,16 @@ const FolderButton = styled.button`
 `
 
 const FolderTitleSummary = styled.summary`
-  font-size: 16px;
+  font-size: 18px;
   border-radius: 15px;
-  padding: .25em .65em;
   border: .5px solid #000;
   list-style: none;
+  min-width: 125px;
+  text-align: center;
+  height: 54px;
+  flex-flow: row wrap;
+  display: flex;
+  place-content: center;
 `
 
 const FolderStructure = styled.section`
@@ -38,11 +44,28 @@ const FolderStructure = styled.section`
   justify-content: flex-end;
   align-items: center;
   min-height: 30px;
+  min-width: 125px;
+`
+
+const ButtonSection = styled.section`
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    height: 36px;
+    border: .5px solid #000;
+`
+
+const TabButton = styled.button`
+    flex-grow: 1;
+    border: 0px solid transparent;
+    background-color: transparent;
 `
 
 
+
+
 export function Folders() {
-  const {LS_KEY, stateNewFolderDialog, editMode, foldersData,setFoldersData} = useContext(ExtensionContext)
+  const {LS_KEY, stateNewFolderDialog, stateDeleteFolderDialog, editMode, foldersData, setFoldersData} = useContext(ExtensionContext)
 
   // Loading the data
   useEffect(() => {
@@ -70,7 +93,18 @@ export function Folders() {
             <>
             <FolderStructure key={folder.id}>
               <details>
-                <FolderTitleSummary>{folder.title}</FolderTitleSummary>
+                <FolderTitleSummary>
+                  {folder.title}
+                  {
+                    editMode && (
+                      <ButtonSection>
+                        <TabButton disabled><i className="fa-solid fa-arrow-left" /></TabButton>
+                        <TabButton disabled><i className="fa-solid fa-arrow-right" /></TabButton>
+                        <TabButton><i className="fa-solid fa-rotate-right" /></TabButton>
+                        <TabButton onClick={() => stateDeleteFolderDialog(true, folder)}><i className="fa-solid fa-trash-can" /></TabButton>
+                      </ButtonSection>
+                    )
+                  }</FolderTitleSummary>
                 <FolderDialog folder={folder} />
               </details>
             </FolderStructure>
@@ -82,7 +116,7 @@ export function Folders() {
           editMode && (
             <FolderStructure>
             <FolderButton onClick={() => stateNewFolderDialog(true)}>
-              <i className="fa-solid fa-plus"></i>
+              <i className="fa-solid fa-plus" />
             </FolderButton>
             <NewFolderDialog />
           </FolderStructure>
@@ -90,6 +124,7 @@ export function Folders() {
         }
         </FoldersSection>
         <NewFolderBookmarkDialog />
+        <DeleteFolderDialog />
     </>
   )
 }

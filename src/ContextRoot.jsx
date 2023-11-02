@@ -39,7 +39,7 @@ const ContextRoot = ({children}) => {
         }
     }
 
-    // New folder item
+    // New folder bookmark
     const newFolderBookmarkDialogRef = useRef();
     const stateNewFolderBookmarkDialog = (state, folder) => {
         if (state) {
@@ -48,6 +48,18 @@ const ContextRoot = ({children}) => {
         } else {
             newFolderBookmarkDialogRef.current.close();
         }
+    }
+
+    // Delete folder
+    const deleteFolderDialogRef = useRef();
+    const stateDeleteFolderDialog = (state, folder) => {
+        if (state) {
+            deleteFolderDialogRef.current.showModal()
+            setSelectOnDeleteFolder(folder)
+        }
+         else {
+            deleteFolderDialogRef.current.close()
+         }
     }
 
     // Edit mode
@@ -62,8 +74,10 @@ const ContextRoot = ({children}) => {
     // Opened folder
     const [selectOpenedFolder, setSelectOpenedFolder] = useState({})
 
+    const [selectOnDeleteFolder, setSelectOnDeleteFolder] = useState({})
+
     return (
-        <ExtensionContext.Provider value={{foldersData, setFoldersData, optionsData, setOptionsData, selectOpenedFolder, setSelectOpenedFolder, stateNewFolderDialog, stateNewFolderBookmarkDialog, newFolderBookmarkDialogRef, newFolderDialogRef, LS_KEY, editMode, setEditMode}}>
+        <ExtensionContext.Provider value={{foldersData, setFoldersData, optionsData, setOptionsData, selectOpenedFolder, setSelectOpenedFolder, selectOnDeleteFolder, setSelectOnDeleteFolder, stateNewFolderDialog, stateNewFolderBookmarkDialog, stateDeleteFolderDialog, newFolderBookmarkDialogRef, newFolderDialogRef, deleteFolderDialogRef, LS_KEY, editMode, setEditMode}}>
             {children}
         </ExtensionContext.Provider>
     )

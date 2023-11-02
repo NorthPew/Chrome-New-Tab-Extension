@@ -171,7 +171,8 @@ export function NewFolderBookmarkDialog() {
 
             </FormContainer>
             <ButtonSection>
-                <ActionButton onClick={() => stateNewFolderBookmarkDialog(false)}>Cancel</ActionButton>
+                <ActionButton type="button" onClick={() => stateNewFolderBookmarkDialog(false)}>Cancel</ActionButton>
+                <ActionButton type="reset">Reset</ActionButton>
                 <ActionButton type="submit" onClick={() => stateNewFolderBookmarkDialog(false)}>Create</ActionButton>
             </ButtonSection>
         </Form>
