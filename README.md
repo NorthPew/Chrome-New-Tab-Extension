@@ -1,5 +1,4 @@
-
-﻿# Chrome New Tab Extension
+# Chrome New Tab Extension
 Are you bored of the same old new tab page on your browser? Do you want to spice it up with some cool features and customization options? If so, you should check out this awesome extension that transforms your new tab page into something amazing. With this extension, you can change the background image, the bookmarks, and more. You can also access your favorite sites and apps with just one click. This extension works on any chromium based browser, such as Google Chrome, Microsoft Edge or Brave. It's easy to install and use, and it will make your browsing experience more fun and personal.
 
 ### Status
