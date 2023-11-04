@@ -35,6 +35,7 @@ This extension uses *chrome.storage* in order to save all stuff such as your fol
  
  ![Chrome]( 
 https://img.shields.io/badge/Google_chrome-4285F4?style=for-the-badge&logo=Google-chrome&logoColor=white) 
+
 This extension will in the end be supported in other browsers such as Brave, Edge and Thorium ❤️
 You can still use it on any chromium browser, even tho I have not tested it on those before.
 Please tell me if something is messed up in your browser.
