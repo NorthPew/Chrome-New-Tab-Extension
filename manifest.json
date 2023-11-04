@@ -1,10 +1,16 @@
 {
     "manifest_version": 3,
     "name": "Chrome New Tab Extension",
+    "short_name": "New Tab",
+    "author": "NorthPew",
+    "description": "A night tab like extension that enhance the new tab functionality. Everything is local and no data is being shared. This extension doesn't collect anything and respect your privacy.",
+    "homepage_url": "https://github.com/NorthPew/Chrome-New-Tab-Extension",
+    "version": "0.0.3",
+    "version_name": "Alpha",
+    "incognito": "not_allowed",
     "permissions": [
       "storage"
     ],
-    "version": "0.0.1",
     "chrome_url_overrides" : {
       "newtab": "./dist/index.html"
     }
