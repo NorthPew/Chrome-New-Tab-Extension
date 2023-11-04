@@ -1,6 +1,9 @@
 # Chrome New Tab Extension
 Are you bored of the same old new tab page on your browser? Do you want to spice it up with some cool features and customization options? If so, you should check out this awesome extension that transforms your new tab page into something amazing. With this extension, you can change the background image, the bookmarks, and more. You can also access your favorite sites and apps with just one click. This extension works on any chromium based browser, such as Google Chrome, Microsoft Edge or Brave. It's easy to install and use, and it will make your browsing experience more fun and personal.
 
+This extension is using *react* and *styled components* to create a dynamic and responsive user interface. React is a popular JavaScript library for building user interfaces, and styled components is a library that allows you to write CSS in JavaScript. With these two libraries, you can create custom components that have their own styles and logic, and reuse them throughout your extension. This way, you can have a consistent and modular design for your extension, and easily update or change it as needed.
+
+
 ### Status
 It's still in the early face of development, so you might encounter some bugs or glitches. But don't worry, we're working hard to make it better and smoother. We appreciate your feedback and support! This extension misses many features but those will be added in the future. I hope there will be in the end that there will be options to save notes, frequent searches and see weather updates.
 
