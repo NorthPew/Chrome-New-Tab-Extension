@@ -3,6 +3,8 @@ Are you bored of the same old new tab page on your browser? Do you want to spice
 
 This extension is using *react* and *styled components* to create a dynamic and responsive user interface. React is a popular JavaScript library for building user interfaces, and styled components is a library that allows you to write CSS in JavaScript. With these two libraries, you can create custom components that have their own styles and logic, and reuse them throughout your extension. This way, you can have a consistent and modular design for your extension, and easily update or change it as needed.
 
+This extension is more than just a project for me. It's a dream that I want to turn into reality. I have a big vision of what it can do. I'm passionate about making it happen and I'm not afraid of the challenges that might come along the way. I hope you share my enthusiasm and join me in this journey.
+
 
 ### Status
 It's still in the early face of development, so you might encounter some bugs or glitches. But don't worry, we're working hard to make it better and smoother. We appreciate your feedback and support! This extension misses many features but those will be added in the future. I hope there will be in the end that there will be options to save notes, frequent searches and see weather updates.
