@@ -1,3 +1,4 @@
+
 ﻿# Chrome New Tab Extension
 Are you bored of the same old new tab page on your browser? Do you want to spice it up with some cool features and customization options? If so, you should check out this awesome extension that transforms your new tab page into something amazing. With this extension, you can change the background image, the bookmarks, and more. You can also access your favorite sites and apps with just one click. This extension works on any chromium based browser, such as Google Chrome, Microsoft Edge or Brave. It's easy to install and use, and it will make your browsing experience more fun and personal.
 
@@ -27,7 +28,7 @@ Do you use Firefox or a non-chromium based browser? Then you can try to use this
 
 <details><summary><h3>chrome.storage</h3></summary>
 
-This extension uses *chrome.storage* in order to save all stuff such as your folders, quick menu items and bookmarks. It falls in the permissions tab in the *manifest json*. Without this permission, all your stuff will be gone every time you clean your browser or when you close it. Here's how it's used: <a href="https://developer.chrome.com/docs/extensions/reference/storage/">chrome storage</a>.
+This extension uses <a href="https://developer.chrome.com/docs/extensions/reference/storage/">chrome.storage</a> in order to save all stuff such as your folders, quick menu items and bookmarks. It falls in the permissions tab in the *manifest json*. Without this permission, all your stuff will be gone every time you clean your browser or when you close it.
 </details>
 
 <details>
@@ -82,5 +83,3 @@ Please tell me if something is messed up in your browser.
 	- A: Simple answer: yes! Tho mention that it's a fork.
 - Q: Can I donate?
 	- A: If you want to do it ❤️ The donation will go towards the goals of this project and to help me live.
-
-
