@@ -9,6 +9,7 @@ import { NewFolderDialog } from "../dialogs/NewFolderDialog"
 import { NewFolderBookmarkDialog } from "../dialogs/NewFolderBookmarkDialog"
 import { FolderDialog } from "../dialogs/FolderDialog"
 import { DeleteFolderDialog } from "../dialogs/DeleteFolderDialog"
+import { EditFolderDialog } from "../dialogs/editFolderDialog"
 
 // Styled
 // Folder
@@ -65,7 +66,7 @@ const TabButton = styled.button`
 
 
 export function Folders() {
-  const {LS_KEY, stateNewFolderDialog, stateDeleteFolderDialog, editMode, foldersData, setFoldersData} = useContext(ExtensionContext)
+  const {LS_KEY, stateNewFolderDialog, stateDeleteFolderDialog, stateEditFolderDialog, editMode, foldersData, setFoldersData} = useContext(ExtensionContext)
 
   // Loading the data
   useEffect(() => {
@@ -98,10 +99,10 @@ export function Folders() {
                   {
                     editMode && (
                       <ButtonSection>
-                        <TabButton disabled><i className="fa-solid fa-arrow-left" /></TabButton>
-                        <TabButton disabled><i className="fa-solid fa-arrow-right" /></TabButton>
-                        <TabButton><i className="fa-solid fa-rotate-right" /></TabButton>
-                        <TabButton onClick={() => stateDeleteFolderDialog(true, folder)}><i className="fa-solid fa-trash-can" /></TabButton>
+                        <TabButton disabled title="Move folder to the left"><i className="fa-solid fa-arrow-left" /></TabButton>
+                        <TabButton disabled title="Move folder to the right"><i className="fa-solid fa-arrow-right" /></TabButton>
+                        <TabButton onClick={() => stateEditFolderDialog(true, folder)} title="Edit folder name"><i className="fa-solid fa-rotate-right" /></TabButton>
+                        <TabButton onClick={() => stateDeleteFolderDialog(true, folder)} title="Remove folder"><i className="fa-solid fa-trash-can" /></TabButton>
                       </ButtonSection>
                     )
                   }</FolderTitleSummary>
@@ -123,8 +124,10 @@ export function Folders() {
           )
         }
         </FoldersSection>
+        {/* Folder dialogs */}
         <NewFolderBookmarkDialog />
         <DeleteFolderDialog />
+        <EditFolderDialog />
     </>
   )
 }

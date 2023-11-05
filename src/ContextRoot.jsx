@@ -62,6 +62,17 @@ const ContextRoot = ({children}) => {
          }
     }
 
+    // Edit folder
+    const editFolderDialogRef = useRef();
+    const stateEditFolderDialog = (state, folder) => {
+        if (state) {
+            editFolderDialogRef.current.showModal()
+            setSelectOnEditFolder(folder)
+        } else {
+            editFolderDialogRef.current.close()
+        }
+    }
+
     // Edit mode
     const [editMode, setEditMode] = useState(false)
 
@@ -71,13 +82,17 @@ const ContextRoot = ({children}) => {
     //Options data stream
     const [optionsData, setOptionsData] = useState(null)
 
-    // Opened folder
+    // Select the opened folder
     const [selectOpenedFolder, setSelectOpenedFolder] = useState({})
 
+    // Folder to select in order to delete
     const [selectOnDeleteFolder, setSelectOnDeleteFolder] = useState({})
 
+    // Select the folder to edit
+    const [selectOnEditFolder, setSelectOnEditFolder] = useState({})
+
     return (
-        <ExtensionContext.Provider value={{foldersData, setFoldersData, optionsData, setOptionsData, selectOpenedFolder, setSelectOpenedFolder, selectOnDeleteFolder, setSelectOnDeleteFolder, stateNewFolderDialog, stateNewFolderBookmarkDialog, stateDeleteFolderDialog, newFolderBookmarkDialogRef, newFolderDialogRef, deleteFolderDialogRef, LS_KEY, editMode, setEditMode}}>
+        <ExtensionContext.Provider value={{foldersData, setFoldersData, optionsData, setOptionsData, selectOpenedFolder, setSelectOpenedFolder, selectOnDeleteFolder, setSelectOnDeleteFolder, selectOnEditFolder, setSelectOnEditFolder, stateEditFolderDialog, stateNewFolderDialog, stateNewFolderBookmarkDialog, stateDeleteFolderDialog, newFolderBookmarkDialogRef, newFolderDialogRef, deleteFolderDialogRef, editFolderDialogRef, LS_KEY, editMode, setEditMode}}>
             {children}
         </ExtensionContext.Provider>
     )

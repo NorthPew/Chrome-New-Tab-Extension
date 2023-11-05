@@ -133,13 +133,17 @@ export function NewFolderBookmarkDialog() {
         } 
     }
 
+    const activeTabStyle = (tab) => {
+        return {backgroundColor: openedTab === tab ? "blue" : null, color: openedTab === tab ? "white" : null}
+    }
+
     return (
     <Dialog ref={newFolderBookmarkDialogRef}>
 
         <Form method="dialog" onSubmit={handleSubmit}>
             <DialogTitle>Add a new bookmark in folder {selectOpenedFolder.title}</DialogTitle>
             <ButtonSection>
-                <TabButton onClick={() => setOpenedTab("visuals")} style={{backgroundColor: openedTab === "visuals" ? "blue" : null, color: openedTab === "visuals" ? "white" : null}}>Visuals</TabButton>
+                <TabButton onClick={() => setOpenedTab("visuals")} style={activeTabStyle("visuals")}>Visuals</TabButton>
                 <TabButton onClick={() => setOpenedTab("address")} style={{backgroundColor: openedTab === "address" ? "blue" : null, color: openedTab === "address" ? "white" : null}}>Address</TabButton>
                 <TabButton onClick={() => setOpenedTab("position")} disabled>Position</TabButton>
                 <TabButton onClick={() => setOpenedTab("preview")} disabled>Preview</TabButton>
