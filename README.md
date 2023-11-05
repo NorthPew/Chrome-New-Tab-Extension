@@ -16,11 +16,10 @@ It's still in the early face of development, so you might encounter some bugs or
 - Aim to make it easy to customize.
 - Keep this project open source.
 - Keep this extension minimalistic in a way.
+- Keep this extension serverless.
 
 ### This extension is a remix!
 This extension is inspired by a popular extension called *night tab*. You may wonder why I created this extension when night tab already exists. The answer is that I wanted to customize my own new tab page and I used night tab as a reference to learn from. I don't use any code that the creator used when making night tab. Also, why are there so many chromium based browsers out there? They are all variations of the same core. They are so called *remixes*! Covers of songs are also remixes.  Even non original songs uses "remix" in their titles.
-
-
 
 ### Data collecting
 You can relax and enjoy this extension without worrying about your privacy. It doesn't track, store or use any of your data. This extension is a browser-based application that does not require any server connection or data transmission. Your personal information is stored locally on your device and never shared with anyone.
@@ -33,6 +32,8 @@ Do you use Firefox or a non-chromium based browser? Then you can try to use this
 <details><summary><h3>chrome.storage</h3></summary>
 
 This extension uses <a href="https://developer.chrome.com/docs/extensions/reference/storage/">chrome.storage</a> in order to save all stuff such as your folders, quick menu items and bookmarks. It falls in the permissions tab in the *manifest json*. Without this permission, all your stuff will be gone every time you clean your browser or when you close it.
+
+As the permission follows: "The Storage API provides an extension-specific way to persist user data and state. It's similar to the web platform's storage APIs (IndexedDB, and Storage), but was designed to meet the storage needs of extensions."
 </details>
 
 <details>
@@ -87,3 +88,5 @@ Please tell me if something is messed up in your browser.
 	- A: Simple answer: yes! Tho mention that it's a fork.
 - Q: Can I donate?
 	- A: If you want to do it ❤️ The donation will go towards the goals of this project and to help me live.
+ - Q: Do you know any projects I can support or donate to?
+	- A: Yes! You could support <a href="https://github.com/Alex313031/thorium">Thorium</a>. 
