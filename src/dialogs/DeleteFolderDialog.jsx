@@ -45,31 +45,14 @@ const FormContainer = styled.section`
 
 export function DeleteFolderDialog() {
 
-    const {deleteFolderDialogRef, selectOnDeleteFolder, stateDeleteFolderDialog, LS_KEY} = useContext(ExtensionContext)
+    const {deleteFolder, deleteFolderDialogRef, selectOnDeleteFolder, stateDeleteFolderDialog, LS_KEY} = useContext(ExtensionContext)
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         console.log("Deleting folder titled: " + selectOnDeleteFolder.title);
-
-        if (chrome.storage) {
-            chrome.storage.local.get(['key'], function (result) {
-                let parseTemplate = result.key;
-
-                parseTemplate.folders = parseTemplate.folders.filter(folder => folder.id !== selectOnDeleteFolder.id);
-
-                // Save the updated template back to chrome.storage.local
-                chrome.storage.local.set({key: parseTemplate}, function() {
-                    console.log('Value is now set to ', parseTemplate);
-                });
-            })
-        } else {
-            let parseTemplate = JSON.parse(localStorage.getItem(LS_KEY))
-
-            parseTemplate.folders = parseTemplate.folders.filter(folder => folder.id !== selectOnDeleteFolder.id);
-
-            localStorage.setItem(LS_KEY, JSON.stringify(parseTemplate));
-        }
+        
+        deleteFolder(selectOnDeleteFolder.id)
     }
 
     return (

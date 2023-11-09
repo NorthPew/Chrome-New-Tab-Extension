@@ -81,12 +81,40 @@ const ContextRoot = ({children}) => {
       
         // Save updated foldersData to chrome.storage or localStorage
         if (chrome.storage) {
-          chrome.storage.local.set({ key: { folders: [...foldersData, newFolder] } });
+          chrome.storage.local.set({ key: { folders: [...foldersData.folders, newFolder] } });
         } else {
           localStorage.setItem(LS_KEY, JSON.stringify({ folders: [...foldersData, newFolder] }));
         }
       }
       
+
+      const deleteFolder = (folderIdToDelete) => {
+        // Filter out the folder to delete
+        const updatedFolders = foldersData.filter(folder => folder.id !== folderIdToDelete);
+      
+        // Update foldersData state
+        setFoldersData(updatedFolders);
+      
+        // Get current data from chrome.storage or localStorage
+        let currentData;
+        if (chrome.storage) {
+          chrome.storage.local.get('key', (result) => {
+            currentData = result.key;
+          });
+        } else {
+          currentData = JSON.parse(localStorage.getItem(LS_KEY));
+        }
+      
+        // Update the folders property of the current data
+        currentData.folders = updatedFolders;
+      
+        // Save updated data to chrome.storage or localStorage
+        if (chrome.storage) {
+          chrome.storage.local.set({ key: currentData });
+        } else {
+          localStorage.setItem(LS_KEY, JSON.stringify(currentData));
+        }
+      }
 
     // Edit mode
     const [editMode, setEditMode] = useState(false)
@@ -107,7 +135,7 @@ const ContextRoot = ({children}) => {
     const [selectOnEditFolder, setSelectOnEditFolder] = useState({})
 
     return (
-        <ExtensionContext.Provider value={{addNewFolder, foldersData, setFoldersData, optionsData, setOptionsData, selectOpenedFolder, setSelectOpenedFolder, selectOnDeleteFolder, setSelectOnDeleteFolder, selectOnEditFolder, setSelectOnEditFolder, stateEditFolderDialog, stateNewFolderDialog, stateNewFolderBookmarkDialog, stateDeleteFolderDialog, newFolderBookmarkDialogRef, newFolderDialogRef, deleteFolderDialogRef, editFolderDialogRef, LS_KEY, editMode, setEditMode}}>
+        <ExtensionContext.Provider value={{addNewFolder, deleteFolder, foldersData, setFoldersData, optionsData, setOptionsData, selectOpenedFolder, setSelectOpenedFolder, selectOnDeleteFolder, setSelectOnDeleteFolder, selectOnEditFolder, setSelectOnEditFolder, stateEditFolderDialog, stateNewFolderDialog, stateNewFolderBookmarkDialog, stateDeleteFolderDialog, newFolderBookmarkDialogRef, newFolderDialogRef, deleteFolderDialogRef, editFolderDialogRef, LS_KEY, editMode, setEditMode}}>
             {children}
         </ExtensionContext.Provider>
     )
