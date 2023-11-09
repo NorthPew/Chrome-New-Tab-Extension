@@ -73,6 +73,21 @@ const ContextRoot = ({children}) => {
         }
     }
 
+
+    // Adding a new (empty) folder
+    const addNewFolder = (newFolder) => {
+        // Update foldersData state
+        setFoldersData(prevFolders => [...prevFolders, newFolder]);
+      
+        // Save updated foldersData to chrome.storage or localStorage
+        if (chrome.storage) {
+          chrome.storage.local.set({ key: { folders: [...foldersData, newFolder] } });
+        } else {
+          localStorage.setItem(LS_KEY, JSON.stringify({ folders: [...foldersData, newFolder] }));
+        }
+      }
+      
+
     // Edit mode
     const [editMode, setEditMode] = useState(false)
 
@@ -92,7 +107,7 @@ const ContextRoot = ({children}) => {
     const [selectOnEditFolder, setSelectOnEditFolder] = useState({})
 
     return (
-        <ExtensionContext.Provider value={{foldersData, setFoldersData, optionsData, setOptionsData, selectOpenedFolder, setSelectOpenedFolder, selectOnDeleteFolder, setSelectOnDeleteFolder, selectOnEditFolder, setSelectOnEditFolder, stateEditFolderDialog, stateNewFolderDialog, stateNewFolderBookmarkDialog, stateDeleteFolderDialog, newFolderBookmarkDialogRef, newFolderDialogRef, deleteFolderDialogRef, editFolderDialogRef, LS_KEY, editMode, setEditMode}}>
+        <ExtensionContext.Provider value={{addNewFolder, foldersData, setFoldersData, optionsData, setOptionsData, selectOpenedFolder, setSelectOpenedFolder, selectOnDeleteFolder, setSelectOnDeleteFolder, selectOnEditFolder, setSelectOnEditFolder, stateEditFolderDialog, stateNewFolderDialog, stateNewFolderBookmarkDialog, stateDeleteFolderDialog, newFolderBookmarkDialogRef, newFolderDialogRef, deleteFolderDialogRef, editFolderDialogRef, LS_KEY, editMode, setEditMode}}>
             {children}
         </ExtensionContext.Provider>
     )

@@ -68,6 +68,9 @@ const TabButton = styled.button`
 export function Folders() {
   const {LS_KEY, stateNewFolderDialog, stateDeleteFolderDialog, stateEditFolderDialog, editMode, foldersData, setFoldersData} = useContext(ExtensionContext)
 
+
+
+
   // Loading the data
   useEffect(() => {
     // If user is using the chrome extension or uses the preview

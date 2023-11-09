@@ -45,7 +45,7 @@ const FormContainer = styled.section`
 
 export function NewFolderDialog() {
 
-    const {stateNewFolderDialog, newFolderDialogRef, LS_KEY} = useContext(ExtensionContext)
+    const {addNewFolder, stateNewFolderDialog, newFolderDialogRef, LS_KEY} = useContext(ExtensionContext)
 
     const [openedTab, setOpenedTab] = useState("visuals")
 
@@ -53,6 +53,7 @@ export function NewFolderDialog() {
 
     function handleOnChangeNewFolderTitle(e) {
         setNewFolderTitle(e.target.value)
+        console.log(folderT);
     }
 
     function handleSubmit(event) {
@@ -62,15 +63,16 @@ export function NewFolderDialog() {
 
             console.log("Creating a new empty folder. Title: ", newFolderTitle);
 
+            let newEmptyFolder = {
+                title: newFolderTitle,
+                contents: []
+            }
+
             if (chrome.storage) {
                 chrome.storage.local.get(['key'], function(result) {
                     let parseTemplate = result.key;
 
-                    let newEmptyFolder = {
-                        id: parseTemplate.folders.length + 1,
-                        title: newFolderTitle,
-                        contents: []
-                    }
+                    newEmptyFolder.id = parseTemplate.folders.length + 1
                 
                     parseTemplate.folders.push(newEmptyFolder);
 
@@ -85,18 +87,16 @@ export function NewFolderDialog() {
             } else {
                 let parseTemplate = JSON.parse(localStorage.getItem(LS_KEY))
 
-                let newEmptyFolder = {
-                    id: parseTemplate.folders.length + 1,
-                    title: newFolderTitle,
-                    contents: []
-                }
+                newEmptyFolder.id = parseTemplate.folders.length + 1
 
                 console.log("Local storage: New folder: ", newEmptyFolder);
     
                 parseTemplate.folders.push(newEmptyFolder)
     
                 localStorage.setItem(LS_KEY, JSON.stringify(parseTemplate))
+                
             }
+            addNewFolder(newEmptyFolder);
         } 
     }
 
